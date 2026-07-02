@@ -32,10 +32,12 @@ Non-negotiable framing:
   to verify. GPU is a separate, later track.
 - **Four directions stay alive until data decides.** Track A is the current
   implementation default (multi-network + iroh + deterministic receipts +
-  FlowMate/backtest). Track B preserves the older Sui/render/libp2p thesis.
-  Track C covers own L1/token/bridge/hybrid L1-L2. Track D covers GPU+CPU
-  micro-nodes and trustless GPU inference. See ADR-0002 before deleting or
-  privileging any track.
+  FlowMate/backtest). Track B preserves the render/libp2p thesis as a
+  multi-network spike across ETH, SUI, SOL, BNB, Base, Polkadot, and future
+  adapters; Sui is only one target, not the track. Track C covers own
+  L1/token/bridge/hybrid L1-L2. Track D covers GPU/GPU+CPU micro-nodes and
+  trustless GPU inference. See ADR-0002 before deleting or privileging any
+  track.
 
 ## 2. Chosen stack (do not silently change)
 

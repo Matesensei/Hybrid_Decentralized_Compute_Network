@@ -39,24 +39,37 @@ Sprint 01 gate:
   two machines or runners.
 - A local verifier rejects tampered input/output commitments.
 
-## Track B: Sui + rendering + libp2p legacy route
+## Track B: multi-network render, token routing, and libp2p comparison
 
 Scope:
 
-- Preserve the older Sui/render/libp2p thesis as a competing prototype, not as
-  the production default.
-- Focus on render-tile proof simplicity and Sui object-model advantages.
+- Preserve the older render/libp2p thesis as a competing prototype, not as the
+  production default.
+- Generalize the lane beyond Sui. ETH, SUI, SOL, BNB, Base, Polkadot, and future
+  adapters are all target networks.
+- Model HDCN's own token as the internal routing/accounting asset for payments,
+  swaps, and validation, while external coins/tokens are priced and converted
+  through explicit adapter/oracle/swap assumptions.
+- Include both GPU-only and GPU+CPU home micro-nodes as validators/workers for
+  compute receipts and settlement events.
 
 Decision data needed:
 
 - Render tile hash prototype.
-- Sui testnet escrow spike.
+- Multi-network adapter matrix for ETH, SUI, SOL, BNB, Base, Polkadot, and later
+  chains.
+- Token/coin price conversion model: oracle source, stale-price handling,
+  slippage, fees, and failure modes.
+- Swap/routing model: when HDCN token is used internally, when external assets
+  are converted, and what remains non-custodial.
+- Sui testnet escrow spike as one adapter example, not the whole lane.
 - libp2p NAT traversal comparison against iroh on the same home-node topology.
 
 Go condition:
 
-- It gives a simpler first customer workload or materially better transport
-  results without turning HDCN into a single-chain project.
+- It gives a simpler first customer workload, materially better transport
+  results, or a stronger multi-network token-routing model without turning HDCN
+  into a single-chain or custodial project.
 
 ## Track C: own L1, token, bridge, hybrid L1/L2
 
@@ -89,6 +102,7 @@ Decision data needed:
 
 - GPU benchmark and thermal/power stability on real home hardware.
 - Cheating/lazy worker detection rate under redundant execution.
+- Capability split for GPU-only nodes versus GPU+CPU nodes.
 - Economics versus CPU deterministic workloads after electricity and capex.
 
 Go condition:

@@ -34,6 +34,8 @@ Claude/Codex review, simulator runs, and Sprint 01 deterministic WASM execution.
 - Claude workflow no-ops if `ANTHROPIC_API_KEY` is absent.
 - `docs/adr/0002-four-track-decision-matrix.md` records the four preserved
   directions and their gates.
+- Track B is recorded as multi-network render/token-routing research, not a
+  Sui-only direction.
 
 ## Local modeling snapshot
 
@@ -77,6 +79,7 @@ are recorded.
 - Token issuance.
 - Own L1 implementation.
 - Bridge implementation.
+- Production swap routing or oracle integration.
 - GPU payout logic.
 - Production node daemon.
 
