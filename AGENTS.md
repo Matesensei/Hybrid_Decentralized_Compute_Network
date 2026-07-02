@@ -9,6 +9,10 @@
 > convention that both Codex and Claude Code parse, and English maximizes their
 > reliability. The human-facing rationale for every rule here lives in the project
 > handbook (`PROJECT_HANDBOOK_EN.md` / `PROJEKT_KEZIKONYV_HU.md`).
+>
+> Mandatory orientation: before planning or editing, agents MUST read
+> `docs/ai/REPO_MAP.md` and follow its cross-review, anti-duplication, and
+> documentation rules.
 
 ## 1. What this project is
 
@@ -78,6 +82,25 @@ production transport from iroh to libp2p requires prototype data plus an ADR.
 
 Cross-review rule: a crate implemented by agent X is reviewed by a different
 agent Y. On disagreement, escalate to the human with both positions summarized.
+For substantive PRs this is mandatory before merge: Claude-authored work needs
+Codex review, Codex-authored work needs Claude review when available, and human
+override must be explicit if a second AI reviewer is unavailable.
+
+## 3.1 Mandatory agent workflow
+
+Before editing, every agent must complete the cold-start checklist in
+`docs/ai/REPO_MAP.md`: read the repo map, nearest `AGENTS.md`, `SECURITY.md`, the
+current sprint doc, relevant ADRs, and the issue/PR. PRs must document:
+
+- tests and simulations run;
+- files/docs changed;
+- anti-duplication checks performed;
+- cross-review status or explicit human-override need.
+
+Agents must avoid duplicate systems and duplicate documents. Before adding a new
+file, type, crate, workflow, ADR, or model, search the repo with `rg` and use the
+canonical owner in `docs/ai/REPO_MAP.md`. If an owner exists, extend it or link
+to it instead of creating a parallel copy.
 
 ## 4. Repository layout (Cargo workspace)
 
@@ -105,6 +128,7 @@ hdcn/
 │   └── cli/
 ├── contracts/                 # solidity (Foundry), move, anchor
 ├── sim/                       # Python simulator (depin_network_model.py)
+├── docs/ai/                   # AI repo map, workflow, anti-dup rules
 └── docs/adr/                  # Architecture Decision Records
 ```
 
@@ -120,6 +144,8 @@ hdcn/
 - **`unsafe` is justified or rejected.** Every `unsafe` block needs a comment
   proving why it is sound; prefer none. Core crates should pass `cargo miri test`.
 - **Every public item is documented.**
+- **Every substantive PR is documented.** Update ADRs, sprint notes, modeling
+  docs, and the AI repo map when the changed area requires it.
 - **Conventional commits** and branch naming: `agent/<name>/<type>-<slug>`
   (e.g. `agent/claude/feat-receipt-dag`, `agent/codex/test-proto-roundtrip`).
 
@@ -146,12 +172,16 @@ cargo audit
   - Non-determinism introduced into a verify/consensus/hash-commit path.
   - `unwrap`/`panic!` on attacker-influenced input in library code.
   - A settlement code path that can release funds without the intended condition.
+  - Substantive PR merged without required cross-review or explicit human
+    override.
 - **P1 (should fix):**
   - Missing `proptest` round-trip for a new wire type.
   - Missing tests for the behavior a PR claims to add.
   - `unsafe` without a soundness comment.
   - Public API without docs; TODOs left in shipped code paths.
   - Silent change to a stack decision from §2 without an ADR.
+  - New file/crate/workflow/doc without an anti-duplication check or repo-map
+    update when it changes ownership/navigation.
 
 ## 7. What agents must NOT do (hard stops)
 

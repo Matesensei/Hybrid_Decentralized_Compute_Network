@@ -21,6 +21,8 @@ Claude/Codex review, simulator runs, and Sprint 01 deterministic WASM execution.
 - Add simulator dependency file and dispatch workflow.
 - Preserve research inputs under `docs/research/`.
 - Document the four-track decision matrix.
+- Add a mandatory AI repo map with cross-review, documentation, and
+  anti-duplication rules.
 - Open a PR for human review; no auto-merge.
 
 ## Acceptance criteria
@@ -36,6 +38,8 @@ Claude/Codex review, simulator runs, and Sprint 01 deterministic WASM execution.
   directions and their gates.
 - Track B is recorded as multi-network render/token-routing research, not a
   Sui-only direction.
+- `docs/ai/REPO_MAP.md` exists and is referenced from `AGENTS.md` as mandatory
+  agent orientation.
 
 ## Local modeling snapshot
 

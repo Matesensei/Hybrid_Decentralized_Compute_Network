@@ -42,6 +42,8 @@ scripts/run_simulations.sh
 ## Canonical Planning Docs
 
 - `docs/sprints/SPRINT_00_BOOTSTRAP.md` - first sprint execution plan.
+- `docs/ai/REPO_MAP.md` - mandatory AI orientation map, cross-review rule, and
+  anti-duplication checklist.
 - `docs/modeling/DIRECTION_MODELING_PLAN.md` - model/test gates before choosing
   a direction.
 - `docs/adr/0001-multi-network-settlement.md` - multi-network settlement with
@@ -55,3 +57,5 @@ scripts/run_simulations.sh
 The human operator is the merge gate. Claude and Codex may open or review PRs,
 but no workflow auto-merges. The Codex/Claude GitHub workflows are intentionally
 secret-gated and no-op when the required API keys are not configured.
+Substantive PRs require another AI's review before merge, or an explicit human
+override if the second AI is unavailable.
