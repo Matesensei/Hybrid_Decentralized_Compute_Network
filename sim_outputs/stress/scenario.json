@@ -1,0 +1,144 @@
+{
+  "name": "stress",
+  "days": 365,
+  "n_gpu_nodes": 750,
+  "n_cpu_verifiers": 250,
+  "base_daily_demand_gpuh": 7500,
+  "demand_growth_annual": 0.25,
+  "demand_vol_daily": 0.2,
+  "price_elasticity": 1.15,
+  "initial_price_usd_gpuh": 0.3,
+  "competitor_ceiling_usd_gpuh": 0.28,
+  "floor_price_usd_gpuh": 0.06,
+  "target_utilization": 0.72,
+  "adaptive_pricing_strength": 0.035,
+  "take_rate": 0.12,
+  "cashout_rate_daily": 0.1,
+  "stress_cashout_multiplier": 4.0,
+  "initial_treasury_usdc": 10000,
+  "initial_credits": 18000,
+  "reserve_yield_apy": 0.035,
+  "hw_efficiency_gain_annual": 0.25,
+  "capex_amort_months": 30.0,
+  "uptime_mean": 0.86,
+  "uptime_sd": 0.1,
+  "min_margin_for_stability_usd_gpuh": 0.015,
+  "churn_base_daily": 0.006,
+  "churn_unprofitable_multiplier": 5.0,
+  "onboarding_rate_daily": 0.002,
+  "gossip_degree": 8.0,
+  "direct_connection_success": 0.78,
+  "direct_rtt_ms": 55.0,
+  "relay_rtt_ms": 180.0,
+  "gossip_overhead_factor": 1.45,
+  "avg_msg_size_bytes": 420,
+  "receipts_per_gpuh": 1.0,
+  "verifier_committee_k": 5,
+  "verify_sampling_rate": 0.1,
+  "lazy_worker_rate": 0.04,
+  "sybil_fake_nodes": 350,
+  "sybil_detection_daily": 0.05,
+  "stake_required_usd": 20,
+  "attacker_budget_usd": 8000,
+  "slashing_loss_usd": 25.0,
+  "regions": [
+    {
+      "name": "Finland",
+      "elec_usd_kwh": 0.09,
+      "weight": 0.08
+    },
+    {
+      "name": "Hungary",
+      "elec_usd_kwh": 0.16,
+      "weight": 0.1
+    },
+    {
+      "name": "Austria",
+      "elec_usd_kwh": 0.24,
+      "weight": 0.1
+    },
+    {
+      "name": "Germany",
+      "elec_usd_kwh": 0.31,
+      "weight": 0.16
+    },
+    {
+      "name": "US_low_cost",
+      "elec_usd_kwh": 0.12,
+      "weight": 0.2
+    },
+    {
+      "name": "US_average",
+      "elec_usd_kwh": 0.18,
+      "weight": 0.16
+    },
+    {
+      "name": "Nordics/cheap",
+      "elec_usd_kwh": 0.07,
+      "weight": 0.08
+    },
+    {
+      "name": "Other_EU",
+      "elec_usd_kwh": 0.22,
+      "weight": 0.12
+    }
+  ],
+  "gpus": [
+    {
+      "name": "RTX_3060_12GB",
+      "watt": 170,
+      "perf_units": 0.25,
+      "capex_usd": 240,
+      "weight": 0.2
+    },
+    {
+      "name": "RTX_3070",
+      "watt": 220,
+      "perf_units": 0.38,
+      "capex_usd": 310,
+      "weight": 0.12
+    },
+    {
+      "name": "RTX_3080",
+      "watt": 320,
+      "perf_units": 0.55,
+      "capex_usd": 430,
+      "weight": 0.12
+    },
+    {
+      "name": "RTX_3090",
+      "watt": 350,
+      "perf_units": 0.75,
+      "capex_usd": 650,
+      "weight": 0.16
+    },
+    {
+      "name": "RTX_4070_Ti",
+      "watt": 285,
+      "perf_units": 0.62,
+      "capex_usd": 700,
+      "weight": 0.12
+    },
+    {
+      "name": "RTX_4080",
+      "watt": 320,
+      "perf_units": 0.82,
+      "capex_usd": 900,
+      "weight": 0.1
+    },
+    {
+      "name": "RTX_4090",
+      "watt": 430,
+      "perf_units": 1.0,
+      "capex_usd": 1700,
+      "weight": 0.14
+    },
+    {
+      "name": "RTX_5090",
+      "watt": 575,
+      "perf_units": 1.35,
+      "capex_usd": 2200,
+      "weight": 0.04
+    }
+  ]
+}

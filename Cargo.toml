@@ -1,0 +1,15 @@
+[workspace]
+members = [
+    "crates/proto",
+    "crates/settle-core",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.82"
+license = "Proprietary"
+repository = "git@github.com:Matesensei/Hybrid_Decentralized_Compute_Network.git"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

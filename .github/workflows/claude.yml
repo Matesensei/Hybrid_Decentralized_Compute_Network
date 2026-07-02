@@ -1,0 +1,60 @@
+name: claude
+
+# Interactive assistant. Responds when a trusted user writes @claude in an issue
+# or PR comment, an issue is assigned, or a review is submitted. Claude reads the
+# nearest AGENTS.md and can open a PR — but never merges (see SECURITY.md).
+#
+# Safety: only the operator allowlisted below can trigger this workflow. The
+# secret check keeps the action as a clean no-op until ANTHROPIC_API_KEY is set.
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  issues:
+    types: [opened, assigned]
+
+jobs:
+  claude:
+    # Only the operator may trigger Claude; no bot or drive-by comment can run it.
+    if: >-
+      github.actor == 'Matesensei' &&
+      (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+        (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # to push branches / open PRs
+      pull-requests: write
+      issues: write
+      id-token: write        # required for OIDC (and for WIF if used)
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check Claude key
+        id: claude_key
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: anthropics/claude-code-action@v1
+        if: steps.claude_key.outputs.present == 'true'
+        with:
+          # Prefer OAuth token (Pro/Max: `claude setup-token`) or, better, WIF.
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Bound the run so a task cannot loop forever (cost + safety).
+          claude_args: |
+            --max-turns 12
+            --model claude-opus-4-8

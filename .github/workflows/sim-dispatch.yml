@@ -1,0 +1,50 @@
+name: sim-dispatch
+
+# Runs the Python network simulator on demand. Triggerable from the GitHub UI or
+# by a narrow Telegram/Hermes control-plane through workflow_dispatch only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Simulation scenario
+        type: choice
+        options: [bear, base, bull, stress, security]
+        default: base
+      runs:
+        description: Monte Carlo runs
+        type: string
+        default: "50"
+      days:
+        description: Simulated days
+        type: string
+        default: "365"
+
+permissions:
+  contents: read
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install simulator dependencies
+        run: pip install -r sim/requirements.txt
+      - name: Run simulation
+        env:
+          MPLCONFIGDIR: /tmp/matplotlib
+        run: |
+          python sim/depin_network_model.py \
+            --scenario "${{ inputs.scenario }}" \
+            --runs "${{ inputs.runs }}" \
+            --days "${{ inputs.days }}" \
+            --plots \
+            --out "out/${{ inputs.scenario }}"
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim-${{ inputs.scenario }}-${{ github.run_id }}
+          path: out/${{ inputs.scenario }}
