@@ -62,7 +62,8 @@ Non-negotiable framing:
 | Agent control-plane | GitHub Actions (auditable) + optional Hermes/Telegram (commands only) |
 
 Any change to a row above requires an **ADR** (`docs/adr/`) and explicit human
-approval. Agents may *propose* changes via an ADR PR; they may not merge them.
+approval. Agents may *propose* changes via an ADR PR; merging one needs an explicit
+per-PR operator instruction (`SECURITY.md` §1).
 The older libp2p direction is preserved as Track B research; switching the
 production transport from iroh to libp2p requires prototype data plus an ADR.
 
@@ -190,7 +191,10 @@ See `SECURITY.md` for the full policy. Summary:
 - Never generate, request, store, or log private keys / seed phrases / mnemonics.
 - Never deploy to any mainnet, move treasury funds, or edit
   signing/settlement-release logic **and** merge it. Such PRs require a human.
-- Never auto-merge. Agents open PRs; the human merges.
+- Never auto-merge or self-merge on your own initiative. Agents open PRs; an agent
+  may click merge **only on an explicit, per-PR operator instruction** — and never
+  for the §2 catastrophic actions, which the operator merges in person
+  (`SECURITY.md` §1).
 - Never widen `permissions:` in a workflow, add a new secret consumer, or change
   branch-protection expectations without flagging it as a trust-boundary change.
 - When uncertain about a security-relevant choice, stop and open an issue for the
