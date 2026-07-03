@@ -5,13 +5,23 @@ an optional Telegram control-plane (Hermes). Because this is a crypto/DePIN
 project, an over-privileged agent can do more harm than good. This policy is
 binding on **all** agents and on the human operator.
 
-## 1. The human is the merge gate
+## 1. The human owns the merge gate; agents merge only on explicit authorization
 
 - Agents may open issues, branches, and pull requests, and may review each other.
-- **Only the human operator merges.** No workflow, bot, or agent is permitted to
-  auto-merge.
+- **No workflow, bot, or agent may merge on its own initiative or via unattended
+  auto-merge.** An agent MAY perform the merge action for a specific PR *only* when
+  the human operator has given an explicit, per-PR instruction to merge it. That is
+  the operator exercising the merge gate with the agent as their hands; the operator
+  remains accountable for the merge. A standing "merge whatever you think is ready"
+  grant does **not** qualify — the authorization must name the PR being merged.
 - Settlement-, cryptography-, and CI-permission-related PRs require explicit human
-  review even if all automated checks pass.
+  review even if all automated checks pass. The operator's merge instruction for
+  such a PR asserts that they have reviewed it.
+- The catastrophic trust-boundary actions in §2 — mainnet deploy, treasury
+  movement, changing signing/settlement-release logic, widening a workflow's
+  `permissions:`, disabling a required check, or weakening branch protection —
+  remain **merged by the operator in person**. An agent never merges these, even
+  with a per-PR instruction; they are raised as an issue for the human.
 
 ## 2. Never, under any circumstance (agents)
 
