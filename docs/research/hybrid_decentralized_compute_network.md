@@ -6,7 +6,9 @@
 > roadmap. For tokenomics/MiCA → `protocol_compute_currency.md`; for the GPU-vertical
 > comparison, GPU verification, and Sui Move reference → `gpu_compute_network_sui_render_libp2p.md`
 > (superseded in part); for cross-chain swap/bridge feasibility → `cross_chain_p2p_feasibility_EN.md`.
-> This is reference input, not an accepted architecture — accepted decisions live in
+> The per-hard-problem risk/solution register + P0-P5 phase mapping (deepening this
+> doc's security assessment) is owned by `seven_problems_solutions.md`. This is
+> reference input, not an accepted architecture — accepted decisions live in
 > `docs/adr/` (see `docs/ai/REPO_MAP.md`).
 
 ## TL;DR

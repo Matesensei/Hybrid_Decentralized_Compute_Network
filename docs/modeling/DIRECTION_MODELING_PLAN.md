@@ -9,6 +9,10 @@ gate below has data.
 > `docs/adr/0002-four-track-decision-matrix.md`; this plan owns the modeling gates
 > and the decision data each track needs. Metric/KPI definitions are owned by the
 > simulator (`sim/depin_network_model.py`) — keep the names below in sync with it.
+> The per-problem risk framing and phase mapping is owned by
+> `docs/research/seven_problems_solutions.md`; the #2 Sybil, #3 slashing-parameter,
+> and #7 sustainability risks it flags are precisely what the `security`/`stress`
+> gates below quantify.
 
 ## Shared baseline
 

@@ -77,6 +77,12 @@ are recorded.
    code.
 5. Run mini simulations for `base`, `stress`, and `security` and record the
    result summary in `docs/sprints/`.
+6. Track the seven-problems risk register
+   (`docs/research/seven_problems_solutions.md`): Sprint 01 delivers problems #1/#6
+   (deterministic WASM proof + committee re-execution, phase P1); problem #4
+   (spam/DDoS) is the weakest area and needs an **explicit pre-mainnet design
+   workstream** (RLN + relay hardening) — do not defer it silently. Run 100–500
+   Monte Carlo runs per scenario before committing new Rust mechanisms.
 
 ## Out of scope for Sprint 00
 
