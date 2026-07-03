@@ -1,0 +1,75 @@
+name: codex-review
+
+# Adversarial PR review by Codex, self-hosted via openai/codex-action.
+#
+# NOTE: There are two Codex review paths.
+#   (1) Codex cloud "@codex review": turn on Code review in Codex settings, then
+#       comment `@codex review` on a PR. No YAML needed; Codex reads AGENTS.md
+#       "## Review guidelines" and posts P0/P1 findings. Simplest option.
+#   (2) This workflow: the self-hosted action, when you want full control over the
+#       prompt, model, and where results go. Kept read-only for the review job.
+#
+# Fork safety: uses `pull_request` (not pull_request_target); fork PRs get empty
+# secrets and the review step no-ops. Pin the action to an immutable SHA in prod.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  codex:
+    if: github.actor == 'Matesensei'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      final_message: ${{ steps.run_codex.outputs.final-message }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check OpenAI key
+        id: openai_key
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -n "$OPENAI_API_KEY" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run Codex (read-only)
+        if: steps.openai_key.outputs.present == 'true'
+        id: run_codex
+        uses: openai/codex-action@v1   # pin to a SHA in production
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: read-only
+          prompt-file: .github/codex/prompts/review.md
+          output-file: codex-output.md
+          # Restrict who can trigger, beyond users with write access:
+          allow-users: "Matesensei"
+
+  post_feedback:
+    runs-on: ubuntu-latest
+    needs: codex
+    if: needs.codex.outputs.final_message != ''
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Post Codex review as a PR comment
+        uses: actions/github-script@v7
+        env:
+          CODEX_FINAL_MESSAGE: ${{ needs.codex.outputs.final_message }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: process.env.CODEX_FINAL_MESSAGE,
+            });
