@@ -27,6 +27,9 @@ Feladatok:
 
 ## Biztonsági szabályok
 
+> Kanonikus policy: `SECURITY.md` §5 (Telegram/Hermes control-plane boundary).
+> Az alábbiak az operatív részletek — ütközésnél a `SECURITY.md` az irányadó.
+
 - Telegram bot csak allowlistelt chat_id-ről fogad parancsot.
 - Hermes nem kap wallet private key-t.
 - GitHub token fine-grained és csak szükséges repo scope.

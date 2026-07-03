@@ -5,6 +5,11 @@ major project directions. No production commitment to a token, own L1, bridge,
 GPU inference payout, or single transport stack should happen until the relevant
 gate below has data.
 
+> The four-track definitions themselves are owned by
+> `docs/adr/0002-four-track-decision-matrix.md`; this plan owns the modeling gates
+> and the decision data each track needs. Metric/KPI definitions are owned by the
+> simulator (`sim/depin_network_model.py`) — keep the names below in sync with it.
+
 ## Shared baseline
 
 Every direction is compared against the same baseline:

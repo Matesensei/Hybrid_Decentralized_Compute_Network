@@ -81,8 +81,10 @@ track). You can move GPU or any chain earlier if you have a reason.
 3. **Deterministic verification > raw throughput.** First workloads in Wasmtime,
    fuel-metered, verified by bit-identical re-execution. GPU is a separate, later,
    standalone track (`executor-gpu`, separate process).
-4. **Human merge-gate.** Agents open issues/PRs and review; **you merge.**
-   Settlement/crypto/CI-permission PRs are yours alone.
+4. **Human-owned merge-gate.** Agents open issues/PRs and review; you own the gate.
+   An agent may merge only on your explicit per-PR instruction; the §2 catastrophic
+   changes (settlement/crypto/CI-permission, mainnet, treasury) stay yours to merge
+   in person. See `SECURITY.md` §1.
 
 ---
 
@@ -207,7 +209,8 @@ You (Telegram/GitHub)
        ├─ Claude Code (@claude): architecture, critical crates, open PR
        ├─ Codex (@codex review): adversarial review, P0/P1
        ├─ GitHub Actions CI: fmt/clippy/test/miri/deny/audit + sim-smoke
-       └─ YOU: merge-gate (settlement/crypto/CI-permission PRs are yours only)
+       └─ YOU: own the merge-gate (agents merge only on your per-PR instruction;
+          §2 settlement/crypto/CI-permission PRs are yours to merge in person)
 ```
 
 ---
@@ -228,7 +231,9 @@ A task's path is always the same, and you stand at the gate:
 4. **Cross-review** — the other agent (`@codex review` or `@claude`) reviews; on
    disagreement, escalate to you.
 5. **CI** — fmt/clippy/test/miri/deny/audit + sim-smoke green.
-6. **Merge** — **you.** You move the ADR to `accepted`.
+6. **Merge** — **you own the gate;** an agent may merge on your explicit per-PR
+   instruction (§2 catastrophic changes stay yours in person). You move the ADR to
+   `accepted`.
 
 ### 6.2 Cadence
 
@@ -272,6 +277,9 @@ a layer built on existing settlement/bridge/aggregator infrastructure. Therefore
 - Financial finality happens **on-chain**, per corridor.
 
 ### 7.2 The chosen model (ADR-0001)
+
+> Canonical decision + full rationale: `docs/adr/0001-multi-network-settlement.md`.
+> This section is the human-facing digest; if the two diverge, the ADR wins.
 
 - **Chain-agnostic `SettlementAdapter` trait**; every chain is equal.
   `escrow_create / escrow_release / escrow_refund / claim_payment /

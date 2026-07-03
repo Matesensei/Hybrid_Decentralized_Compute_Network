@@ -81,8 +81,10 @@ track). A GPU-t és bármelyik láncot előrébb súlyozhatod, ha van rá okod.
 3. **Determinisztikus verifikáció > nyers throughput.** Első workloadok
    Wasmtime-ban, fuel-metered, bit-azonos újrafuttatással ellenőrizve. A GPU külön,
    későbbi, önálló szál (`executor-gpu`, külön processz).
-4. **Emberi merge-gate.** Az agentek issue-t/PR-t nyitnak és review-znak; **te
-   mergelsz.** Settlement/kripto/CI-jogosultság PR-t csak te.
+4. **Emberi tulajdonú merge-gate.** Az agentek issue-t/PR-t nyitnak és review-znak;
+   a gate a tiéd. Agent csak a te kifejezett, per-PR utasításodra mergelhet; a §2
+   katasztrofális változásokat (settlement/kripto/CI-jog, mainnet, treasury)
+   továbbra is te mergeled személyesen. Lásd `SECURITY.md` §1.
 
 ---
 
@@ -208,7 +210,8 @@ Te (Telegram/GitHub)
        ├─ Claude Code (@claude): architektúra, kritikus crate-ek, PR nyitás
        ├─ Codex (@codex review): adversarial review, P0/P1
        ├─ GitHub Actions CI: fmt/clippy/test/miri/deny/audit + sim-smoke
-       └─ TE: merge-gate (a settlement/kripto/CI-jog PR-t csak te mergeled)
+       └─ TE: tiéd a merge-gate (agent csak a te per-PR utasításodra mergel;
+          a §2 settlement/kripto/CI-jog PR-t te mergeled személyesen)
 ```
 
 ---
@@ -228,7 +231,9 @@ Egy feladat útja mindig ugyanaz, és te a kapuban állsz:
 4. **Cross-review** — a másik agent (`@codex review` vagy `@claude`) átnézi;
    egyet-nem-értésnél eszkaláció hozzád.
 5. **CI** — fmt/clippy/test/miri/deny/audit + sim-smoke zöld.
-6. **Merge** — **te.** Az ADR-t te mozgatod `accepted`-re.
+6. **Merge** — **tiéd a gate;** agent a te kifejezett per-PR utasításodra mergelhet
+   (a §2 katasztrofális változásokat te személyesen). Az ADR-t te mozgatod
+   `accepted`-re.
 
 ### 6.2 Ütem (cadence)
 
@@ -272,6 +277,9 @@ infrastruktúrára épített réteg. Ezért:
 - A pénzügyi finality **láncon** történik, corridoronként.
 
 ### 7.2 A választott modell (ADR-0001)
+
+> Kanonikus döntés + teljes indoklás: `docs/adr/0001-multi-network-settlement.md`.
+> Ez a szakasz az ember-olvasható kivonat; ha eltérnek, az ADR az irányadó.
 
 - **Chain-agnosztikus `SettlementAdapter` trait**; minden lánc egyenrangú.
   `escrow_create / escrow_release / escrow_refund / claim_payment /

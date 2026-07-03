@@ -23,7 +23,8 @@ Claude/Codex review, simulator runs, and Sprint 01 deterministic WASM execution.
 - Document the four-track decision matrix.
 - Add a mandatory AI repo map with cross-review, documentation, and
   anti-duplication rules.
-- Open a PR for human review; no auto-merge.
+- Open a PR for review; no unattended auto-merge (an agent merges only on an
+  explicit per-PR operator instruction — `SECURITY.md` §1).
 
 ## Acceptance criteria
 
@@ -64,7 +65,7 @@ are recorded.
 | Critical review | Claude | Review `proto`, `settle-core`, CI secrets/permissions |
 | Adversarial review | Codex review workflow | P0/P1 findings only, read-only sandbox |
 | Control-plane | Hermes/Telegram later | Dispatch simulator runs and summarize results only |
-| Merge gate | Human | Review, branch protection, secrets, final merge |
+| Merge gate | Human owns it | Branch protection, secrets; §2 changes merged in person, other PRs by an agent only on explicit per-PR instruction (`SECURITY.md` §1) |
 
 ## Sprint 01 backlog
 

@@ -1,5 +1,14 @@
 # Decentralizált GPU Compute Hálózat (DePIN) — Teljes Technikai Architektúra és Megvalósítási Terv
 
+> **Research input — ADR-0002 Track B / older direction (SUPERSEDED IN PART).** Its
+> headline picks — Sui-first settlement, libp2p transport, bincode wire format, and a
+> 3D-rendering MVP — are superseded by `hybrid_decentralized_compute_network.md` +
+> ADR-0002 (multi-network, iroh, postcard, Base-first, FlowMate-first workload). Still
+> canonical for: the GPU-vertical comparison (render vs inference vs ZK), GPU-specific
+> verification (TOPLOC/RepOps/determinism), consumer-GPU economics, and the Sui Move
+> reference implementation. Do **not** treat its transport / wire-format / settlement-
+> chain / MVP-vertical decisions as accepted.
+
 ## Executive Summary (Vezetői összefoglaló)
 
 Ez a jelentés egy decentralizált GPU compute hálózat (DePIN) teljes architektúráját tervezi meg, ahol minden NVIDIA GPU-val rendelkező PC mikro-node-ként működik. Fő ajánlásom: **kezdd a Version A (Sui-alapú settlement) architektúrával, a 3D rendering (Blender Cycles) verticalra fókuszálva MVP-ként, no-token fee-only modellel (SUI/USDC).** Saját L1 (B1) építése egy solo fejlesztőnek irreális; a minimális proof-of-compute gossip réteg (B2) csak később, opcionálisan indokolt.
