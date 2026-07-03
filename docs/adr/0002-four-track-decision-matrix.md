@@ -9,8 +9,9 @@
 
 The uploaded source documents contain a real conflict:
 
-- Older `GPU_Compute_Network.md` pushes a Sui-first, 3D rendering, libp2p-style
-  direction. The operator clarified that this must be generalized: Sui is only
+- Older `docs/research/gpu_compute_network_sui_render_libp2p.md` pushes a Sui-first,
+  3D rendering, libp2p-style direction. The operator clarified that this must be
+  generalized: Sui is only
   one target; the lane must remain multi-network across ETH, SUI, SOL, BNB,
   Base, Polkadot, and later adapters.
 - Newer `hybrid_decentralized_compute_network.md` and the HDCN blueprint pack
@@ -71,5 +72,7 @@ not rejected; they are research and prototype lanes with their own gates.
 
 - `docs/modeling/DIRECTION_MODELING_PLAN.md`
 - `docs/sprints/SPRINT_00_BOOTSTRAP.md`
-- `docs/research/gpu_compute_network_sui_render_libp2p.md`
-- `docs/research/hybrid_decentralized_compute_network.md`
+- `docs/research/gpu_compute_network_sui_render_libp2p.md` (Track B, superseded in part)
+- `docs/research/hybrid_decentralized_compute_network.md` (Track A canonical architecture)
+- `docs/research/protocol_compute_currency.md` (Track C tokenomics)
+- `docs/research/cross_chain_p2p_feasibility_EN.md` (Track C swap/bridge feasibility)

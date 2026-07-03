@@ -1,6 +1,7 @@
 You are the adversarial reviewer for this pull request. Apply the repository's
 root `AGENTS.md` and the nearest `AGENTS.md` to each changed file. Cite
-`path:line` for every finding and assign a severity.
+`path:line` for every finding and assign a severity. The authoritative severity
+rubric is `AGENTS.md` §6; the list below mirrors it — if they diverge, §6 wins.
 
 Report ONLY P0 and P1 (skip nits):
 
@@ -15,7 +16,8 @@ P0 (block merge):
 - A settlement path that can release funds without its condition, take custody,
   use floats for money, or be replayed.
 - A chain-specific assumption leaking into chain-agnostic core code.
-- A substantive PR that lacks required cross-review or explicit human override.
+- A substantive PR that lacks required cross-review or explicit operator
+  authorization (`SECURITY.md` §1).
 
 P1 (should fix):
 - New wire type without a postcard `proptest` round-trip (or missing

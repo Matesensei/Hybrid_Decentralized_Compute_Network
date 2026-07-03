@@ -1,5 +1,13 @@
 # Protokoll-natív elszámoló érme ("compute currency") — teljes monetáris és tokenomikai terv
 
+> **Research input — canonical owner: tokenomics / "compute-currency" (ADR-0002
+> Track C).** Owns the monetary design (compute-peg, internal work-credit vs token),
+> stabilization mechanisms, MiCA classification, and the economic simulation
+> framework. The architecture docs (`hybrid_decentralized_compute_network.md`,
+> `gpu_compute_network_sui_render_libp2p.md`) cross-reference this for ALL economic
+> and regulatory detail rather than restating it. Reference input, not an accepted
+> decision — see the ADR-0002 Track C gate.
+
 ## Executive summary
 
 Máté, a rövid válasz: **igen, van értelme protokoll-natív elszámoló egységnek, de NEM szabad tokent kibocsátani a hálózat korai szakaszában.** A helyes út egy **belső, compute-alapú munkajegy (work-credit)**, amely nem tőzsdén jegyzett kriptovaluta, hanem zárt hurkú elszámoló egység — pontosan úgy, ahogy a Helium a "Data Credit" egységet használja. Az érme értékmércéje ne a USD legyen, hanem egy **gördülő (rolling) benchmarkhoz kötött standardizált munkaegység**, a protokoll pedig **market-maker-ként** vételi és beváltási árat jegyez.

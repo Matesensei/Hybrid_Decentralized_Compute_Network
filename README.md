@@ -54,8 +54,11 @@ scripts/run_simulations.sh
 
 ## Agent Workflow
 
-The human operator is the merge gate. Claude and Codex may open or review PRs,
-but no workflow auto-merges. The Codex/Claude GitHub workflows are intentionally
-secret-gated and no-op when the required API keys are not configured.
-Substantive PRs require another AI's review before merge, or an explicit human
-override if the second AI is unavailable.
+The human operator owns the merge gate: no workflow auto-merges, and an agent may
+merge a PR only on an explicit per-PR operator instruction (the §2 catastrophic
+changes — mainnet, treasury, signing/settlement-release, permission widening —
+stay operator-merged in person). The Codex/Claude GitHub workflows are
+intentionally secret-gated and no-op when the required API keys are not
+configured. Substantive PRs require another AI's review first, or an explicit
+operator override if the second AI is unavailable. Full policy: `SECURITY.md` §1
+and `AGENTS.md` §3.

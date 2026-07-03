@@ -2,8 +2,9 @@
 
 > This file is the **root contract** for every AI coding agent (Codex, Claude Code,
 > GLM, or any other) that touches this repository. Agents MUST read this file and the
-> nearest `AGENTS.md` to each changed file before making changes. A human is the sole
-> merge gate — see `SECURITY.md`.
+> nearest `AGENTS.md` to each changed file before making changes. The human operator owns the merge gate;
+> agents may merge only on an explicit per-PR operator instruction, and never the
+> §2 catastrophic actions — see `SECURITY.md` §1.
 >
 > This file is intentionally written in **English**: `AGENTS.md` is a machine-facing
 > convention that both Codex and Claude Code parse, and English maximizes their
@@ -78,8 +79,10 @@ production transport from iroh to libp2p requires prototype data plus an ADR.
 - **Hermes (optional)** — Telegram control-plane only: opens issues, triggers
   workflows, requests reviews, summarizes CI. It never holds keys and never
   deploys. See `SECURITY.md`.
-- **Human (Máté)** — merge gate and security authority. The only actor that
-  merges settlement/security PRs or touches mainnet.
+- **Human (Máté)** — owns the merge gate and is the security authority. Merges the
+  §2 catastrophic changes (mainnet, treasury, signing/settlement-release logic,
+  permission widening) in person; other PRs may be merged by an agent only on an
+  explicit per-PR instruction (`SECURITY.md` §1).
 
 Cross-review rule: a crate implemented by agent X is reviewed by a different
 agent Y. On disagreement, escalate to the human with both positions summarized.
@@ -101,7 +104,8 @@ current sprint doc, relevant ADRs, and the issue/PR. PRs must document:
 Agents must avoid duplicate systems and duplicate documents. Before adding a new
 file, type, crate, workflow, ADR, or model, search the repo with `rg` and use the
 canonical owner in `docs/ai/REPO_MAP.md`. If an owner exists, extend it or link
-to it instead of creating a parallel copy.
+to it instead of creating a parallel copy. The full check-before-create checklist
+is owned by `docs/ai/REPO_MAP.md` § "Anti-duplication checklist".
 
 ## 4. Repository layout (Cargo workspace)
 
@@ -127,7 +131,7 @@ hdcn/
 │   ├── checkpoint/            # epoch anchoring
 │   ├── node/                  # daemon binary
 │   └── cli/
-├── contracts/                 # solidity (Foundry), move, anchor
+├── contracts/                 # LATER: solidity (Foundry), move, anchor (planned)
 ├── sim/                       # Python simulator (depin_network_model.py)
 ├── docs/ai/                   # AI repo map, workflow, anti-dup rules
 └── docs/adr/                  # Architecture Decision Records
@@ -172,9 +176,11 @@ cargo audit
     committed to the repo or printed to logs.
   - Non-determinism introduced into a verify/consensus/hash-commit path.
   - `unwrap`/`panic!` on attacker-influenced input in library code.
-  - A settlement code path that can release funds without the intended condition.
-  - Substantive PR merged without required cross-review or explicit human
-    override.
+  - A settlement code path that can release funds without the intended condition,
+    take custody, or use floats for money.
+  - A chain-specific assumption leaking into chain-agnostic core code.
+  - Substantive PR merged without required cross-review or explicit operator
+    authorization (`SECURITY.md` §1).
 - **P1 (should fix):**
   - Missing `proptest` round-trip for a new wire type.
   - Missing tests for the behavior a PR claims to add.

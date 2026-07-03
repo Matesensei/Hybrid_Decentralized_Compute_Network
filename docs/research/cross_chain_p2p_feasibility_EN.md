@@ -1,5 +1,13 @@
 # Universal Cross-Chain P2P Transaction Network: Technical Feasibility and Competitive Landscape
 
+> **Research input — canonical owner: cross-chain swap / bridge / intent-routing
+> feasibility (ADR-0002 Track C, swap/routing).** This answers the "single P2P layer
+> above all DEXs/chains" question — a DIFFERENT problem from HDCN's compute
+> settlement, which uses CCTP + per-corridor netting
+> (`hybrid_decentralized_compute_network.md`), NOT the bridge/intent stack analyzed
+> here. Do not wire bridge risk into the compute-settlement path. Reference input,
+> not an accepted decision.
+
 ## TL;DR
 - **The envisioned "single fast P2P layer above ALL DEXs and chains" is, in the literal sense, not feasible**: there is no shared state across chains, each one has its own security model and finality time, and the finality of the slowest chain becomes the bottleneck. The closest realistic implementation is an **intent-based + solver/filler architecture built on the ERC-7683 standard**, combined with aggregator layers (LI.FI, Socket/Bungee).
 - **The dominant obstacle is not the code, but liquidity and security.** Bridges are the most-exploited attack surface in crypto — per Chainlink (citing DefiLlama data), *"cross-chain bridges have been exploited for more than $2.8 billion to date — nearly 40% of all value stolen across Web3"* — and a new cross-chain network must bootstrap deep liquidity on every supported chain simultaneously.

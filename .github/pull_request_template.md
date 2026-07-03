@@ -7,6 +7,8 @@
 - [ ] `cargo fmt --check`
 - [ ] `cargo clippy --workspace --all-targets --all-features -- -D warnings`
 - [ ] `cargo test --workspace --all-features`
+- [ ] `cargo deny check` (licenses + RUSTSEC advisories)
+- [ ] `cargo audit`
 - [ ] Simulator/modeling command, if relevant:
 
 ## Documentation
@@ -27,10 +29,14 @@
 
 - [ ] Requested review from another AI agent
 - [ ] Cross-review verdict is linked or quoted in this PR
-- [ ] If second AI is unavailable, explicit human override is requested here
+- [ ] If second AI is unavailable, explicit operator override is requested here
+- [ ] If this PR is merged by an agent, the operator's explicit per-PR merge
+      instruction is linked (`SECURITY.md` §1)
 
 ## Security
 
 - [ ] No private keys, seed phrases, mnemonics, RPC secrets, API keys, or mainnet deploy keys
 - [ ] Workflow permission or secret changes are explicitly called out
 - [ ] No mainnet deployment, token issuance, bridge release, or funds movement
+- [ ] This PR does not touch §2 catastrophic actions; if it does, they are
+      operator-merged in person (`SECURITY.md` §1-§2)

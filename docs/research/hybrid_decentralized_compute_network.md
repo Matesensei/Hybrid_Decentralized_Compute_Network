@@ -1,5 +1,14 @@
 # Hibrid Decentralizált Compute Hálózat — Teljes Architektúra, Implementációs Terv és Multi-Agent AI Fejlesztési Workflow
 
+> **Research input — canonical owner: whole-system architecture (ADR-0002 Track A).**
+> Owns the multi-network settlement abstraction, checkpoint/anchoring, transport
+> (iroh) + wire format (postcard), heterogeneous node model, and the master build
+> roadmap. For tokenomics/MiCA → `protocol_compute_currency.md`; for the GPU-vertical
+> comparison, GPU verification, and Sui Move reference → `gpu_compute_network_sui_render_libp2p.md`
+> (superseded in part); for cross-chain swap/bridge feasibility → `cross_chain_p2p_feasibility_EN.md`.
+> This is reference input, not an accepted architecture — accepted decisions live in
+> `docs/adr/` (see `docs/ai/REPO_MAP.md`).
+
 ## TL;DR
 - A javasolt hibrid architektúra a **B2 lightweight proof-of-compute + gossip** réteget egyesíti egy **teljesen chain-agnosztikus, több-láncú settlement adapter réteggel**, ahol Solana, Sui, Base, Ethereum, BNB, Polkadot, Avalanche és XRPL egyenrangú settlement-végpontok; a checkpoint-anchoring problémát a "cheapest-2-3 chain (XRPL+Solana) + per-corridor finality" pragmatikus modell oldja meg.
 - A csomópont-modellek közül az **A+C hibrid (egységes daemon capability-alapú tiered szerepekkel: GPU heavy compute + CPU-only infrastruktúra-szerepek)** a nyertes, WASM-first CPU-sandbox (wasmtime, fuel-determinizmus) + CUDA-first GPU, **iroh 1.0 + iroh-gossip** hálózati stack, és **postcard** wire-formátum mellett; az első workload a FlowMate elosztott backtest (dogfooding), az első chain a **Base**.

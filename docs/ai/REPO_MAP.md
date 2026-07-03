@@ -76,7 +76,7 @@ These are not production commitments until added by PR and ADR where needed:
 | `crates/gossip/` | iroh-gossip topics and job propagation | `transport`, `proto` |
 | `crates/capability/` | CPU/GPU capability reporting | `proto` |
 | `crates/executor-gpu/` | Isolated GPU worker control plane | `capability`, `proto`, `verify` |
-| `crates/settle-evm/` | EVM adapter, Base first by sequence only | `settle-core` |
+| `crates/settle-evm/` | EVM adapter, Base first by sequence only; BNB/Avalanche reuse this adapter (no separate crate) | `settle-core` |
 | `crates/settle-solana/` | Solana settlement adapter | `settle-core` |
 | `crates/settle-sui/` | Sui settlement adapter | `settle-core` |
 | `crates/settle-polkadot/` | Polkadot/Substrate adapter | `settle-core` |
@@ -121,23 +121,22 @@ for duplication:
 
 ## Cross-review rule
 
-Every substantive PR must be reviewed by another AI before the human merges it:
+**Canonical owner: `AGENTS.md` §3.** Summary for orientation: every substantive PR
+must be reviewed by another AI before it is merged — merged by the operator, or by
+an agent on an explicit per-PR operator instruction (`SECURITY.md` §1). Settlement,
+crypto, verification, workflow-permission, token, bridge, L1/L2, and GPU-payout
+changes require explicit cross-review plus human review; the author may not approve
+their own substantive work, and disagreements are recorded in the PR with both
+positions and a human decision.
 
-- Claude-authored work needs Codex review.
-- Codex-authored work needs Claude review when the Claude workflow/agent is
-  available; otherwise the PR must clearly state that human override is needed.
-- Settlement, crypto, verification, workflow-permission, token, bridge, L1/L2,
-  and GPU payout changes require explicit cross-review plus human review.
-- The author may not mark their own substantive work as fully approved.
-- Disagreements are recorded in the PR with both positions and a human decision.
-
-Pure documentation typo fixes may be human-merged without a full second-agent
-review, but documentation that changes architecture, workflow, security, or the
-repo map is substantive.
+Pure documentation typo fixes may skip a full second-agent review, but
+documentation that changes architecture, workflow, security, or the repo map is
+substantive.
 
 ## Documentation requirements
 
-Agents must document their work in the same PR:
+Canonical owner of the general PR-documentation rule is `AGENTS.md` §3.1; the
+repo-map-specific triggers below are what an agent must keep current here:
 
 - Update public Rust docs for public API changes.
 - Add or update an ADR for architecture or stack decisions.
