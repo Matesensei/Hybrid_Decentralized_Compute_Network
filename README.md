@@ -46,6 +46,9 @@ scripts/run_simulations.sh
   anti-duplication checklist.
 - `docs/modeling/DIRECTION_MODELING_PLAN.md` - model/test gates before choosing
   a direction.
+- `docs/research/seven_problems_solutions.md` - the seven hard problems every
+  decentralized-compute network must answer, each mapped to a solution plan, an
+  honest verdict, and the P0-P5 phase that addresses it.
 - `docs/adr/0001-multi-network-settlement.md` - multi-network settlement with
   Base implemented first.
 - `docs/adr/0002-four-track-decision-matrix.md` - preserves the four major

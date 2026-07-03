@@ -99,6 +99,8 @@ Use the existing owner before creating a new module or document:
 - Modeling before decisions: `docs/modeling/`
 - Sprint execution and validation notes: `docs/sprints/`
 - Raw uploaded research/input material: `docs/research/`
+- Seven-hard-problems risk/solution register + P0-P5 phase mapping:
+  `docs/research/seven_problems_solutions.md`
 - AI operating rules and maps: `docs/ai/`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,

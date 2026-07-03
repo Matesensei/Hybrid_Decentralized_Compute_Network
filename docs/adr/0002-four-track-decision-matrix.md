@@ -76,3 +76,4 @@ not rejected; they are research and prototype lanes with their own gates.
 - `docs/research/hybrid_decentralized_compute_network.md` (Track A canonical architecture)
 - `docs/research/protocol_compute_currency.md` (Track C tokenomics)
 - `docs/research/cross_chain_p2p_feasibility_EN.md` (Track C swap/bridge feasibility)
+- `docs/research/seven_problems_solutions.md` (seven-hard-problems risk/solution register + P0-P5 phase mapping; its open-research list expands the open questions above)
