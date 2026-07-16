@@ -20,6 +20,16 @@ must treat those files as reference inputs, not as production decisions. Accepte
 decisions live in `docs/adr/`, current work planning lives in `docs/sprints/`,
 and pre-decision modeling lives in `docs/modeling/`.
 
+Point-in-time 2026-07-16 advisory inputs:
+
+- `docs/research/HDCN_FULL_AUDIT_HU_2026_07_16.md`
+- `docs/research/HDCN_INNOVATION_PRODUCT_STRATEGY_HU_2026_07_16.md`
+
+Console agents must enter those reports through
+`docs/ai/CONSOLE_HANDOFF_AUDIT_AND_PRODUCT_STRATEGY_2026_07_16.md`. Dated
+analyses never override root agent/security rules, accepted ADRs, or the current
+sprint.
+
 ## Mandatory agent cold start
 
 Before editing code or docs, every agent must read, in order:
@@ -57,7 +67,7 @@ conflict in the PR and ask for human direction or propose an ADR.
 | `docs/sprints/` | Sprint plans, validation snapshots, handoffs | Record what was tested and what remains blocked |
 | `docs/research/` | Extracted/raw research inputs | Reference only; do not treat as accepted architecture |
 | `docs/reference/` | External integration notes | Keep separate from accepted decisions |
-| `docs/ai/` | Agent workflow, repo map, anti-dup rules | Must be kept current for all AI agents |
+| `docs/ai/` | Agent workflow, repo map, anti-dup rules, dated console orientation | Must be kept current for all AI agents; handoffs do not become architecture authority |
 | `sim/` | Python DePIN network simulator | Dependency list in `sim/requirements.txt`; outputs not written to source paths |
 | `sim_outputs/` | Checked-in baseline simulator outputs | Small reference outputs only; large generated runs go to artifacts/docs |
 | `scripts/` | Local helper scripts | Must be deterministic and safe; no secrets |
@@ -101,6 +111,8 @@ Use the existing owner before creating a new module or document:
 - Raw uploaded research/input material: `docs/research/`
 - Seven-hard-problems risk/solution register + P0-P5 phase mapping:
   `docs/research/seven_problems_solutions.md`
+- Dated 2026-07-16 audit/product research entry point:
+  `docs/ai/CONSOLE_HANDOFF_AUDIT_AND_PRODUCT_STRATEGY_2026_07_16.md`
 - AI operating rules and maps: `docs/ai/`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
