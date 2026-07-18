@@ -4,8 +4,10 @@
 > It is not an accepted ADR and does not replace `AGENTS.md`, `SECURITY.md`, accepted ADRs,
 > `docs/ai/REPO_MAP.md`, or the current deterministic WASM/receipt sprint.
 
-**Date:** 2026-07-18  
-**Status:** documentation and staged implementation direction  
+**Date:** 2026-07-18
+
+**Status:** documentation and staged implementation direction
+
 **Current adapter:** default OFF; read/status/plan and bounded sandbox ingest only
 
 ## Outcome
@@ -158,4 +160,3 @@ The first HDCN release is complete only when strict, shared contracts can drive 
 scoped observation, sanitized diagnosis, Telegram status/alerts, and bounded sandbox evidence with
 replay/idempotency, resource/cost limits, tamper-evident receipts, failure tests, and no path to
 trading, signing, settlement, payout, production dispatch, deployment, or merge.
-
