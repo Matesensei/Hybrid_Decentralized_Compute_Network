@@ -8,7 +8,8 @@
 
 **Status:** documentation and staged implementation direction
 
-**Current adapter:** default OFF; read/status/plan and bounded sandbox ingest only
+**Current implementation:** no HDCN AI Manager runtime adapter or Telegram gateway; the proposed
+adapter-v1 ceiling is default OFF and limited to read/status/plan plus bounded sandbox ingest
 
 ## Outcome
 

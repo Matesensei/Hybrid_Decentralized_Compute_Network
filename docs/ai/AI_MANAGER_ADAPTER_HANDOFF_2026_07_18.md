@@ -1,6 +1,7 @@
 # HDCN AI Manager adapter handoff
 
-**Status:** implementation handoff; not an accepted ADR
+**Status:** proposed implementation handoff; no HDCN AI Manager runtime adapter is implemented;
+not an accepted ADR
 
 **Repository snapshot:** `fb945f62a6cf7fe55915e88e5b87a43ff271811c`
 
@@ -11,18 +12,18 @@
 The next provider-neutral, multi-manager, Telegram, code/API debugging, compute-risk, and offline
 AI+ML direction is owned by
 `docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
-This handoff remains authoritative for the narrower adapter v1 that is actually described today.
+This handoff remains authoritative for the narrower proposed adapter-v1 boundary.
 The future FlowMate live-trading grant is project-specific and cannot authorize any HDCN trade,
 signing, settlement, payout, treasury, workflow-dispatch, production-node, deployment, or merge
 action.
 
 ## Purpose and authority
 
-Connect the reusable FlowMate AI Manager contracts to HDCN without turning the
-manager into a deployment, workflow-dispatch, signing, settlement, or protected-
-branch agent.
+Specify how a future implementation may connect the reusable FlowMate AI Manager contracts to
+HDCN without turning the manager into a deployment, workflow-dispatch, signing, settlement, or
+protected-branch agent.
 
-HDCN adapter v1 is limited to:
+The proposed HDCN adapter v1 would be limited to:
 
 - repository and policy reads;
 - CI/workflow status reads;
@@ -30,12 +31,11 @@ HDCN adapter v1 is limited to:
 - sandbox artifact and receipt ingestion;
 - evidence-bound reports for human review.
 
-The v1 adapter has `max_side_effect_level = sandbox`. It cannot dispatch a
-workflow, open an issue or pull request, push a branch, deploy, merge, place a
-trade, or submit a settlement action. Any later external write requires a new
-capability version, a separate exact-revision human approval, a separately
-configured executor, provider readback, independent review, and the HDCN human
-merge gate.
+No current HDCN component exposes this adapter contract. When implemented, adapter v1 must have
+`max_side_effect_level = sandbox`. It must not dispatch a workflow, open an issue or pull request,
+push a branch, deploy, merge, place a trade, or submit a settlement action. Any later external
+write requires a new capability version, a separate exact-revision human approval, a separately
+configured executor, provider readback, independent review, and the HDCN human merge gate.
 
 This handoff does not accept `DecisionReceiptV1` as protocol architecture. Any
 protocol or control-plane change still requires the normal ADR, anti-duplication

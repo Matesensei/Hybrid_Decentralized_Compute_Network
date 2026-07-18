@@ -168,9 +168,10 @@ repo-map-specific triggers below are what an agent must keep current here:
 
 - Master direction and console sprint coordination:
   `docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
-- Implemented/default-OFF HDCN adapter-v1 boundary:
+- Proposed/default-OFF HDCN adapter-v1 boundary (documentation only; no runtime adapter exists):
   `docs/ai/AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`.
-- Telegram operational boundary: `docs/reference/hermes_telegram_config.md`.
+- Proposed Telegram operational boundary (documentation only):
+  `docs/reference/hermes_telegram_config.md`.
 
 These planning handoffs do not override accepted ADRs, HDCN protocol ownership, Sprint 01,
 `SECURITY.md`, or the human merge gate. HDCN never inherits a FlowMate trading capability.

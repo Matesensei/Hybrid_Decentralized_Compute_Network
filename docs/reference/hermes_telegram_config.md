@@ -1,18 +1,21 @@
-# Hermes + Telegram + HDCN AI Manager control plane
+# Planned Hermes + Telegram + HDCN AI Manager control plane
 
-## Current authority
+## Current implementation
 
-Hermes/Telegram is an authenticated operator gateway for the default-OFF HDCN AI Manager. Adapter
-v1 is limited to read/status/plan and bounded local sandbox artifact ingest. It does not receive
-wallet or signing keys and cannot dispatch workflows, modify GitHub, deploy, settle, pay, merge, or
-trade.
+HDCN currently has no AI Manager runtime adapter and no authenticated Hermes/Telegram gateway.
+This document defines a proposed default-OFF boundary; it is not configuration or evidence of a
+deployed service.
+
+The proposed adapter v1 would be limited to read/status/plan and bounded local sandbox artifact
+ingest. It must not receive wallet or signing keys and cannot dispatch workflows, modify GitHub,
+deploy, settle, pay, merge, or trade.
 
 The master roadmap is
-`docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`; the implemented
+`docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`; the proposed
 adapter boundary remains `docs/ai/AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`. `SECURITY.md` and
 accepted ADRs win on conflict.
 
-## v1 commands
+## Proposed v1 commands
 
 ```text
 /ai_status
@@ -30,12 +33,13 @@ accepted ADRs win on conflict.
 /ai_kill <scope>
 ```
 
-`/ai_sim_plan` creates a deterministic plan only; it does not call `workflow_dispatch`.
+When implemented, `/ai_sim_plan` may create a deterministic plan only; it must not call
+`workflow_dispatch`.
 `/ship_p0` and `/deploy_testnet` are not v1 commands. A future workflow or compute executor needs a
 new HDCN capability version, accepted ADR, exact approval, separate credentialed executor,
 operation/readback receipts, and independent review.
 
-## Authentication and replay protection
+## Planned authentication and replay protection
 
 - Allowlist both Telegram `user_id` and `chat_id`; a display name is not identity.
 - Bind every request to `project_id=hdcn`, tenant/workspace, adapter, exact scope, mode, policy,
