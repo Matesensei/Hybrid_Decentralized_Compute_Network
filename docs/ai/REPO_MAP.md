@@ -162,3 +162,15 @@ repo-map-specific triggers below are what an agent must keep current here:
   changes.
 - PR descriptions must list tests run, docs changed, anti-dup checks, and
   cross-review status.
+
+
+## Hybrid AI/ML Manager canonical owners (2026-07-18)
+
+- Master direction and console sprint coordination:
+  `docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
+- Implemented/default-OFF HDCN adapter-v1 boundary:
+  `docs/ai/AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`.
+- Telegram operational boundary: `docs/reference/hermes_telegram_config.md`.
+
+These planning handoffs do not override accepted ADRs, HDCN protocol ownership, Sprint 01,
+`SECURITY.md`, or the human merge gate. HDCN never inherits a FlowMate trading capability.

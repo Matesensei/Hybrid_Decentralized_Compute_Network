@@ -4,7 +4,17 @@
 
 **Repository snapshot:** `fb945f62a6cf7fe55915e88e5b87a43ff271811c`
 
-**Documentation branch:** PR #10, head `c9af03b9d197fc0e92e15f827d248aa6f509ad28`
+**Documentation line:** introduced through draft PR #10 from base snapshot `fb945f62a6cf7fe55915e88e5b87a43ff271811c`; always resolve and record the current remote PR head before implementation.
+
+## 2026-07-18 hybrid expansion
+
+The next provider-neutral, multi-manager, Telegram, code/API debugging, compute-risk, and offline
+AI+ML direction is owned by
+`docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
+This handoff remains authoritative for the narrower adapter v1 that is actually described today.
+The future FlowMate live-trading grant is project-specific and cannot authorize any HDCN trade,
+signing, settlement, payout, treasury, workflow-dispatch, production-node, deployment, or merge
+action.
 
 ## Purpose and authority
 

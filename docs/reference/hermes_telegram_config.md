@@ -1,46 +1,64 @@
-# Hermes + Telegram + GitHub vezérlőpult
+# Hermes + Telegram + HDCN AI Manager control plane
 
-## Ajánlás
+## Current authority
 
-Hermes használható, de ne ő legyen a production kulcsokat kezelő automata. A legjobb szerepe: Telegram control-plane.
+Hermes/Telegram is an authenticated operator gateway for the default-OFF HDCN AI Manager. Adapter
+v1 is limited to read/status/plan and bounded local sandbox artifact ingest. It does not receive
+wallet or signing keys and cannot dispatch workflows, modify GitHub, deploy, settle, pay, merge, or
+trade.
 
-Feladatok:
+The master roadmap is
+`docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`; the implemented
+adapter boundary remains `docs/ai/AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`. `SECURITY.md` and
+accepted ADRs win on conflict.
 
-- GitHub issue létrehozás Telegramból
-- workflow_dispatch indítás GitHub Actionsben
-- CI/PR státusz összefoglalás
-- sim futtatás workflow-on keresztül
-- PR review kérés Codex/Claude agentektől
-
-## Javasolt Telegram parancsok
-
-```text
-/status
-/ci
-/issue <cím> | <leírás>
-/run_sim base 50 365
-/run_sim stress 100 365
-/review 123
-/ship_p0
-/stop
-```
-
-## Biztonsági szabályok
-
-> Kanonikus policy: `SECURITY.md` §5 (Telegram/Hermes control-plane boundary).
-> Az alábbiak az operatív részletek — ütközésnél a `SECURITY.md` az irányadó.
-
-- Telegram bot csak allowlistelt chat_id-ről fogad parancsot.
-- Hermes nem kap wallet private key-t.
-- GitHub token fine-grained és csak szükséges repo scope.
-- Mainnet deploy parancs nincs Telegramból.
-- Minden veszélyes parancshoz kétlépcsős megerősítés:
+## v1 commands
 
 ```text
-/deploy_testnet base-sepolia
-/confirm <nonce>
+/ai_status
+/ai_providers
+/ai_scope
+/ai_on observe <scope> <ttl>
+/ai_on advise <scope> <ttl>
+/ai_off [scope]
+/ai_alerts
+/ai_ack <alert_id>
+/ai_explain <decision_id>
+/ai_debug <incident_id>
+/ai_sim_plan <scenario>
+/ai_revoke <grant_id>
+/ai_kill <scope>
 ```
 
-## GitHub Actions indítás
+`/ai_sim_plan` creates a deterministic plan only; it does not call `workflow_dispatch`.
+`/ship_p0` and `/deploy_testnet` are not v1 commands. A future workflow or compute executor needs a
+new HDCN capability version, accepted ADR, exact approval, separate credentialed executor,
+operation/readback receipts, and independent review.
 
-Hermes ne SSH-val fusson rá közvetlenül a szerverre production munkákhoz. Inkább hívja a GitHub REST workflow_dispatch API-t, és a runner végezze el a munkát auditálható loggal.
+## Authentication and replay protection
+
+- Allowlist both Telegram `user_id` and `chat_id`; a display name is not identity.
+- Bind every request to `project_id=hdcn`, tenant/workspace, adapter, exact scope, mode, policy,
+  nonce, Telegram `update_id`, creation time, expiry, and idempotency key.
+- Accept state changes only through strict commands or signed button callbacks. Free text is
+  advisory context and never becomes an executable payload.
+- Enforce RBAC, rate/cooldown limits, exact object hashes, immutable receipts, and readback.
+- `/ai_off`, `/ai_revoke`, and `/ai_kill` are immediate, idempotent, deny-overrides-allow actions
+  whose operation does not depend on an external AI provider.
+- Telegram may activate or narrow a pre-authorized HDCN capability; it cannot create a capability
+  above the server policy ceiling.
+
+## Data and credential boundary
+
+Never send bot tokens, GitHub/API credentials, wallet/signing material, raw headers, raw stack
+traces, private workloads, protected payloads, or personal/customer data to Telegram or an LLM.
+Store only sanitized evidence references, fingerprints, exact revisions, and bounded operator-
+safe summaries. Rotate the bot token through the secrets manager; do not place it in repository
+configuration or chat history.
+
+## Project isolation
+
+A FlowMate live-trading capability has no meaning in HDCN and cannot authorize a trade,
+settlement, payout, signing operation, treasury action, workflow dispatch, production node change,
+deployment, or merge. Cross-project and cross-tenant grant reuse is a blocking security defect.
+
