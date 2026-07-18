@@ -61,4 +61,3 @@ configuration or chat history.
 A FlowMate live-trading capability has no meaning in HDCN and cannot authorize a trade,
 settlement, payout, signing operation, treasury action, workflow dispatch, production node change,
 deployment, or merge. Cross-project and cross-tenant grant reuse is a blocking security defect.
-
