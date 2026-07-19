@@ -157,12 +157,17 @@ def load_config(path: Path) -> tuple[Config, str]:
             )
             for term, weight in group.items()
         }
+    timeout_raw = raw["timeout_seconds"]
+    if type(timeout_raw) not in {int, float}:
+        raise ResearchWatchError("timeout_seconds must be a number")
+    for source in sources:
+        source_url(source)
     config = Config(
         project=require_string(raw["project"], "project"),
         max_age_hours=require_int(raw["max_age_hours"], "max_age_hours"),
         min_score=require_int(raw["min_score"], "min_score"),
         output_limit=require_int(raw["output_limit"], "output_limit"),
-        timeout_seconds=float(cast(int | float, raw["timeout_seconds"])),
+        timeout_seconds=float(cast(int | float, timeout_raw)),
         keyword_weights=weights,
         sources=tuple(sources),
         rules=tuple(rules),
@@ -336,7 +341,7 @@ def render_markdown(digest: Digest) -> str:
     for item in digest.items:
         title = item.title.replace("[", "\\[").replace("]", "\\]")
         lines.append(
-            f"- [{title}]({item.link}) — score {item.score}, `{item.category}`, `{item.source_id}`"
+            f"- [{title}](<{item.link}>) — score {item.score}, `{item.category}`, `{item.source_id}`"
         )
     if digest.source_errors:
         lines.extend(["", "## Source failures"])
