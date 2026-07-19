@@ -71,6 +71,7 @@ conflict in the PR and ask for human direction or propose an ADR.
 | `docs/reference/` | External integration notes | Keep separate from accepted decisions |
 | `docs/ai/` | Agent workflow, repo map, anti-dup rules, dated console orientation | Must be kept current for all AI agents; handoffs do not become architecture authority |
 | `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md` | PR-sized self-improvement milestones for sandbox reproduction, scheduler/protocol simulation, draft proposals, canary and rollback | Planning only; no protocol, node, signing, settlement, payout, deploy or merge authority |
+| `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md` | Console specification for separate development/production roles, stable technology radar, non-consensus runbooks, canary and rollback | Planning only; no protocol, node, signing, settlement, payout, production dispatch, deploy or merge authority |
 | `sim/` | Python DePIN network simulator | Dependency list in `sim/requirements.txt`; outputs not written to source paths |
 | `sim_outputs/` | Checked-in baseline simulator outputs | Small reference outputs only; large generated runs go to artifacts/docs |
 | `scripts/` | Local helper scripts, including the read-only `ai_research_watch/` package | Must be deterministic and safe; no secrets or production side effects |
@@ -122,6 +123,8 @@ Use the existing owner before creating a new module or document:
   `docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md`
 - Post-watcher self-improvement implementation backlog:
   `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`
+- Development, production-management and stable self-upgrade implementation specification:
+  `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
 `new`, `final`, or agent-specific copy.
@@ -186,6 +189,10 @@ repo-map-specific triggers below are what an agent must keep current here:
   `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`, covering
   deterministic sandbox reproduction, scheduler/protocol simulation, benchmark proposals,
   dependency tests, draft-only PRs, offline/local canary and rollback without authority increase.
+- Development/production-management and stable self-upgrade programming specification:
+  `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md`, defining
+  role separation, stable-release evidence, non-consensus production runbooks, local canary and
+  rollback without protocol, node, signing, settlement, payout or production-dispatch authority.
 
 These planning handoffs do not override accepted ADRs, HDCN protocol ownership, Sprint 01,
 `SECURITY.md`, or the human merge gate. HDCN never inherits a FlowMate trading capability.
