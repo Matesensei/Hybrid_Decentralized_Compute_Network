@@ -40,21 +40,58 @@ python -m scripts.ai_research_watch \
 
 ## Recommendation lanes
 
-- security evidence → draft a threat-model update;
-- protocol/scheduler evidence → reproduce in the deterministic simulation sandbox;
-- Rust/runtime dependency evidence → benchmark in an isolated upgrade sandbox;
-- GPU/cloud/DePIN market evidence → review simulation assumptions only;
-- SRE/architecture/management evidence → draft an operator-review proposal.
+- security evidence -> draft a threat-model update;
+- protocol/scheduler evidence -> reproduce in the deterministic simulation sandbox;
+- Rust/runtime dependency evidence -> benchmark in an isolated upgrade sandbox;
+- GPU/cloud/DePIN market evidence -> review simulation assumptions only;
+- SRE/architecture/management evidence -> draft an operator-review proposal.
 
 Every recommendation requires human approval and has no execution authority. Allowed side
 effects are limited to `none`, `sandbox` and `draft_only`.
 
+## Important next development milestones
+
+The complete PR-sized implementation backlog is:
+
+```text
+docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md
+```
+
+It documents:
+
+- rootless, resource-bounded deterministic research reproduction;
+- a protocol/scheduler simulation arena that extends `sim/` instead of creating a second
+  scheduler or protocol;
+- baseline/candidate code, simulation and workload benchmark receipts;
+- optional experiment/artifact lineage without replacing ADR/modeling/sprint authority;
+- capacity, queue, worker, receipt and economic-risk anomaly/drift challengers with no
+  consensus or verifier authority;
+- Rust/Python/Actions dependency and toolchain benchmarks;
+- a separately granted automatic **draft-only** PR broker;
+- offline shadow -> local deterministic canary -> later bounded node-pool stages;
+- rollback-capable scheduler/model revisions that cannot sign, settle, pay or dispatch
+  production compute;
+- evidence-driven engineering and self-management recommendations.
+
+The mandatory ordering is:
+
+```text
+strict contracts and observability
+-> deterministic sandbox reproduction
+-> baseline/candidate simulation and benchmark
+-> independent review and ADR where required
+-> offline/local canary
+-> rollback-capable bounded promotion
+```
+
 ## Next gated increments
 
 1. Freeze an HDCN observation adapter contract without duplicating the FlowMate core types.
-2. Add signed/attested provenance only after an ADR and threat-model review.
-3. Reproduce selected research in `sim/` and attach deterministic receipts/seed/config data.
-4. Generate draft proposal bundles; never autonomous production changes.
+2. Implement `HDCN-SI-01` HDCN domain contracts and a fake reproduction broker before
+   connecting Docker, MLflow, online-learning libraries or any node.
+3. Add signed/attested provenance only after an ADR and threat-model review.
+4. Reproduce selected research in `sim/` and attach deterministic receipts/seed/config data.
+5. Generate draft proposal bundles; never autonomous production changes.
 
 This file is a dated implementation handoff. It does not override `AGENTS.md`,
 `SECURITY.md`, accepted ADRs, the current sprint or the AI Manager master direction.
