@@ -70,6 +70,7 @@ conflict in the PR and ask for human direction or propose an ADR.
 | `docs/research/` | Extracted/raw research inputs | Reference only; do not treat as accepted architecture |
 | `docs/reference/` | External integration notes | Keep separate from accepted decisions |
 | `docs/ai/` | Agent workflow, repo map, anti-dup rules, dated console orientation | Must be kept current for all AI agents; handoffs do not become architecture authority |
+| `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md` | PR-sized self-improvement milestones for sandbox reproduction, scheduler/protocol simulation, draft proposals, canary and rollback | Planning only; no protocol, node, signing, settlement, payout, deploy or merge authority |
 | `sim/` | Python DePIN network simulator | Dependency list in `sim/requirements.txt`; outputs not written to source paths |
 | `sim_outputs/` | Checked-in baseline simulator outputs | Small reference outputs only; large generated runs go to artifacts/docs |
 | `scripts/` | Local helper scripts, including the read-only `ai_research_watch/` package | Must be deterministic and safe; no secrets or production side effects |
@@ -119,6 +120,8 @@ Use the existing owner before creating a new module or document:
 - AI operating rules and maps: `docs/ai/`
 - Runnable read-only research-watcher handoff:
   `docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md`
+- Post-watcher self-improvement implementation backlog:
+  `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
 `new`, `final`, or agent-specific copy.
@@ -168,7 +171,7 @@ repo-map-specific triggers below are what an agent must keep current here:
 - PR descriptions must list tests run, docs changed, anti-dup checks, and
   cross-review status.
 
-## Hybrid AI/ML Manager canonical owners (2026-07-18)
+## Hybrid AI/ML Manager canonical owners (2026-07-19)
 
 - Master direction and console sprint coordination:
   `docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
@@ -179,6 +182,10 @@ repo-map-specific triggers below are what an agent must keep current here:
 - Runnable advisory observation slice:
   `docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md`, with runtime, configuration
   and workflow authority limited to read-only collection and artifact output.
+- Concrete post-watcher implementation order:
+  `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`, covering
+  deterministic sandbox reproduction, scheduler/protocol simulation, benchmark proposals,
+  dependency tests, draft-only PRs, offline/local canary and rollback without authority increase.
 
 These planning handoffs do not override accepted ADRs, HDCN protocol ownership, Sprint 01,
 `SECURITY.md`, or the human merge gate. HDCN never inherits a FlowMate trading capability.
