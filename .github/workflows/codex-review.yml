@@ -10,7 +10,7 @@ name: codex-review
 #       prompt, model, and where results go. Kept read-only for the review job.
 #
 # Fork safety: uses `pull_request` (not pull_request_target); fork PRs get empty
-# secrets and the review step no-ops. Pin the action to an immutable SHA in prod.
+# secrets and the review step no-ops. All actions are SHA-pinned (SECURITY.md).
 
 on:
   pull_request:
@@ -25,7 +25,7 @@ jobs:
     outputs:
       final_message: ${{ steps.run_codex.outputs.final-message }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
           fetch-depth: 0
@@ -43,7 +43,7 @@ jobs:
       - name: Run Codex (read-only)
         if: steps.openai_key.outputs.present == 'true'
         id: run_codex
-        uses: openai/codex-action@v1   # pin to a SHA in production
+        uses: openai/codex-action@52fe01ec70a42f454c9d2ebd47598f9fd6893d56 # v1.9
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           sandbox: read-only
@@ -61,7 +61,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Post Codex review as a PR comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         env:
           CODEX_FINAL_MESSAGE: ${{ needs.codex.outputs.final_message }}
         with:

@@ -32,10 +32,11 @@ jobs:
     permissions:
       contents: write        # to push branches / open PRs
       pull-requests: write
-      issues: write
-      id-token: write        # required for OIDC (and for WIF if used)
+      issues: write          # respond in issues (issue_comment / issues triggers)
+      # id-token deliberately absent: auth is via ANTHROPIC_API_KEY, not OIDC/WIF.
+      # Re-add `id-token: write` only if/when WIF auth is actually adopted.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           fetch-depth: 0
       - name: Check Claude key
@@ -48,7 +49,7 @@ jobs:
           else
             echo "present=false" >> "$GITHUB_OUTPUT"
           fi
-      - uses: anthropics/claude-code-action@v1
+      - uses: anthropics/claude-code-action@af0559ee4f514d1ef21826982bed13f7edc3c35e # v1.0.99
         if: steps.claude_key.outputs.present == 'true'
         with:
           # Prefer OAuth token (Pro/Max: `claude setup-token`) or, better, WIF.
