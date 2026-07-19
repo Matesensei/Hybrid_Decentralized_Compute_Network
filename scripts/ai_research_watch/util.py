@@ -105,16 +105,24 @@ def require_bool(value: object, name: str) -> bool:
     return value
 
 
-def validate_https_url(value: str) -> str:
-    if len(value) > MAX_URL_CHARS:
-        raise ResearchWatchError("source URL exceeds the length limit")
-    parsed = urllib.parse.urlsplit(value)
-    if parsed.scheme.lower() != "https" or not parsed.hostname:
-        raise ResearchWatchError("source URL must use HTTPS with a hostname")
-    if parsed.username or parsed.password or parsed.fragment:
-        raise ResearchWatchError("source URL contains forbidden userinfo or fragment")
+def _validate_web_url(
+    value: str, *, allowed_schemes: frozenset[str], allow_fragment: bool
+) -> str:
+    if not value or value.strip() != value or len(value) > MAX_URL_CHARS:
+        raise ResearchWatchError("URL is empty, untrimmed, or exceeds the length limit")
+    if any(character.isspace() or ord(character) < 0x20 for character in value):
+        raise ResearchWatchError("URL contains whitespace or control characters")
     try:
-        literal = ipaddress.ip_address(parsed.hostname)
+        parsed = urllib.parse.urlsplit(value)
+        hostname = parsed.hostname
+    except ValueError as exc:
+        raise ResearchWatchError("URL is malformed") from exc
+    if parsed.scheme.lower() not in allowed_schemes or not hostname:
+        raise ResearchWatchError("URL scheme or hostname is not allowed")
+    if parsed.username or parsed.password or (parsed.fragment and not allow_fragment):
+        raise ResearchWatchError("URL contains forbidden userinfo or fragment")
+    try:
+        literal = ipaddress.ip_address(hostname)
     except ValueError:
         literal = None
     if literal and (
@@ -125,8 +133,20 @@ def validate_https_url(value: str) -> str:
         or literal.is_unspecified
         or literal.is_multicast
     ):
-        raise ResearchWatchError("source URL targets a private or reserved IP")
+        raise ResearchWatchError("URL targets a private or reserved IP")
     return value
+
+
+def validate_https_url(value: str) -> str:
+    return _validate_web_url(
+        value, allowed_schemes=frozenset({"https"}), allow_fragment=False
+    )
+
+
+def validate_item_url(value: str) -> str:
+    return _validate_web_url(
+        value, allowed_schemes=frozenset({"http", "https"}), allow_fragment=True
+    )
 
 
 def source_url(source: Source) -> str:
@@ -259,8 +279,12 @@ def parse_feed(data: bytes) -> list[dict[str, object]]:
     result: list[dict[str, object]] = []
     for entry in entries:
         title = sanitize(_child_text(entry, {"title"}), MAX_TITLE_CHARS)
-        link = _link(entry)
-        if not title or not link:
+        raw_link = _link(entry)
+        if not title or not raw_link:
+            continue
+        try:
+            link = validate_item_url(raw_link)
+        except ResearchWatchError:
             continue
         result.append(
             {
