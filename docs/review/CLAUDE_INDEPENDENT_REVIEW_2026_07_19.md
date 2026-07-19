@@ -63,4 +63,12 @@ Existing mitigations: `github.actor == 'Matesensei'` + `@claude` gate, `--max-tu
 ## 7. Cross-project isolation
 Non-inheritance holds: HDCN adapter is capped at read/status/plan/sandbox-ingest; a FlowMate `LiveTradingGrantV1` is invalid in HDCN; no trading/signing/settlement/dispatch/deploy/merge authority is inherited. Keep this boundary when the compute executor is eventually built (needs a new capability version + accepted ADR).
 
+## 8. Remediation status (updated later on 2026-07-19)
+
+| Item | Status |
+|---|---|
+| §4/§6 P0-1 + P0-2 (`claude.yml` privileges, SHA-pinning all workflows) | **Draft PR #14** — all 4 workflows SHA-pinned (live tag→SHA resolution), `id-token: write` dropped, `--locked` added to cargo clippy/test (part of P1-4). CI-tier → human merge required. |
+| §6 P0-3 (pin the FlowMate #406 contract reference) | Open — blocked on the FlowMate #406-family fate decision |
+| Everything else (§6 P1–P3) | Open — awaiting human triage |
+
 *Reviewer: Claude (independent, read-only). Nothing committed to code paths, merged, or deployed.*
