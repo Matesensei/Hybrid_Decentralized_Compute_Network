@@ -80,6 +80,20 @@ class ResearchWatchTests(unittest.TestCase):
         with self.assertRaises(ResearchWatchError):
             parse_feed(b'<!DOCTYPE x [<!ENTITY y "boom">]><rss/>')
 
+    def test_non_web_item_links_are_skipped(self):
+        feed = b"""<?xml version="1.0"?><rss><channel><item><title>Bad</title><link>javascript:alert(1)</link></item><item><title>Good</title><link>https://example.org/good#section</link></item></channel></rss>"""
+        items = parse_feed(feed)
+        self.assertEqual([item["title"] for item in items], ["Good"])
+
+    def test_boolean_timeout_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            raw = config_dict()
+            raw["timeout_seconds"] = True
+            path = Path(tmp) / "bad-timeout.json"
+            path.write_text(json.dumps(raw))
+            with self.assertRaises(ResearchWatchError):
+                load_config(path)
+
     def test_duplicate_json_keys_are_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "bad.json"
