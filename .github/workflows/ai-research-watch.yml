@@ -1,0 +1,81 @@
+name: AI research, security, and infrastructure watch
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/ai-research-watch.yml"
+      - "config/ai/research_sources.json"
+      - "scripts/ai_research_watch/**"
+      - "tests/test_ai_research_watch.py"
+      - "docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md"
+      - "docs/ai/REPO_MAP.md"
+  workflow_dispatch:
+  schedule:
+    - cron: "41 4 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-research-watch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Python
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # immutable v5-era commit
+        with:
+          python-version: "3.12"
+      - name: Run watcher unit and config tests
+        run: python -m unittest discover -s tests -p 'test_ai_research_watch.py' -v
+
+  observe:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Python
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # immutable v5-era commit
+        with:
+          python-version: "3.12"
+      - name: Prepare bounded state directory
+        run: mkdir -p "${{ runner.temp }}/ai-research-watch"
+      - name: Restore seen-item state
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: "${{ runner.temp }}/ai-research-watch/state.json"
+          key: hdcn-ai-research-state-${{ github.run_id }}
+          restore-keys: |
+            hdcn-ai-research-state-
+      - name: Collect advisory infrastructure and security digest
+        run: >-
+          python -m scripts.ai_research_watch
+          --config config/ai/research_sources.json
+          --output "${{ runner.temp }}/ai-research-watch/digest.json"
+          --markdown-output "${{ runner.temp }}/ai-research-watch/summary.md"
+          --state "${{ runner.temp }}/ai-research-watch/state.json"
+          --new-only
+          --strict
+      - name: Publish human-readable run summary
+        if: always()
+        run: |
+          if [ -f "${{ runner.temp }}/ai-research-watch/summary.md" ]; then
+            cat "${{ runner.temp }}/ai-research-watch/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload advisory digest
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hdcn-ai-research-watch-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/ai-research-watch/digest.json
+            ${{ runner.temp }}/ai-research-watch/summary.md
+          if-no-files-found: warn
+          retention-days: 14

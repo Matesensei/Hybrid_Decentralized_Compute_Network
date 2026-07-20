@@ -58,19 +58,24 @@ conflict in the PR and ask for human direction or propose an ADR.
 | `.github/workflows/codex-review.yml` | Optional read-only Codex PR review | Must remain secret-gated and operator-trigger constrained |
 | `.github/workflows/claude.yml` | Optional Claude issue/PR assistant | Must remain operator-trigger constrained; no auto-merge |
 | `.github/workflows/sim-dispatch.yml` | Manual simulator dispatch | Telegram/Hermes may dispatch only; no deployment |
+| `.github/workflows/ai-research-watch.yml` | Read-only research, security and infrastructure observer plus contract tests | Immutable action pins, `contents: read`, no secrets, dispatch, deployment or merge |
 | `.github/pull_request_template.md` | Required PR checklist | Must include validation, docs, anti-dup, cross-review, and security sections |
 | `.github/codex/prompts/review.md` | Codex review rubric | P0/P1 findings only; include cross-review and anti-dup checks |
 | `crates/proto/` | Wire types, receipts, canonical encoding | Postcard only; deterministic bytes; no chain-specific logic |
 | `crates/settle-core/` | Chain-neutral settlement trait/types | No custody, no floats for money, no chain priority |
+| `config/ai/research_sources.json` | Reviewed source allowlist, scoring metadata and advisory recommendation rules | Configuration only; never grants runtime authority |
 | `docs/adr/` | Accepted/proposed architecture decisions | One decision per ADR; update when stack/track decisions change |
 | `docs/modeling/` | Pre-decision modeling plans and outputs | Use before token/L1/bridge/GPU payout decisions |
 | `docs/sprints/` | Sprint plans, validation snapshots, handoffs | Record what was tested and what remains blocked |
 | `docs/research/` | Extracted/raw research inputs | Reference only; do not treat as accepted architecture |
 | `docs/reference/` | External integration notes | Keep separate from accepted decisions |
 | `docs/ai/` | Agent workflow, repo map, anti-dup rules, dated console orientation | Must be kept current for all AI agents; handoffs do not become architecture authority |
+| `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md` | PR-sized self-improvement milestones for sandbox reproduction, scheduler/protocol simulation, draft proposals, canary and rollback | Planning only; no protocol, node, signing, settlement, payout, deploy or merge authority |
+| `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md` | Console specification for separate development/production roles, stable technology radar, non-consensus runbooks, canary and rollback | Planning only; no protocol, node, signing, settlement, payout, production dispatch, deploy or merge authority |
 | `sim/` | Python DePIN network simulator | Dependency list in `sim/requirements.txt`; outputs not written to source paths |
 | `sim_outputs/` | Checked-in baseline simulator outputs | Small reference outputs only; large generated runs go to artifacts/docs |
-| `scripts/` | Local helper scripts | Must be deterministic and safe; no secrets |
+| `scripts/` | Local helper scripts, including the read-only `ai_research_watch/` package | Must be deterministic and safe; no secrets or production side effects |
+| `tests/test_ai_research_watch.py` | Research-watcher parser, state, scoring and safety contracts | Standard-library tests; fail closed on schema and authority drift |
 
 ## Planned crate map
 
@@ -90,7 +95,7 @@ These are not production commitments until added by PR and ADR where needed:
 | `crates/settle-solana/` | Solana settlement adapter | `settle-core` |
 | `crates/settle-sui/` | Sui settlement adapter | `settle-core` |
 | `crates/settle-polkadot/` | Polkadot/Substrate adapter | `settle-core` |
-| `crates/settle-xrpl/` | XRPL adapter | `settle-core` |
+| `crates/settle-xrpl/` | XRPL settlement adapter | `settle-core` |
 | `crates/node/` | Node daemon | transport, gossip, executors, verify |
 | `crates/cli/` | Operator CLI | node/client crates |
 | `contracts/` | Settlement contracts after adapter specs | `settle-core`, ADR approval |
@@ -114,6 +119,12 @@ Use the existing owner before creating a new module or document:
 - Dated 2026-07-16 audit/product research entry point:
   `docs/ai/CONSOLE_HANDOFF_AUDIT_AND_PRODUCT_STRATEGY_2026_07_16.md`
 - AI operating rules and maps: `docs/ai/`
+- Runnable read-only research-watcher handoff:
+  `docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md`
+- Post-watcher self-improvement implementation backlog:
+  `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`
+- Development, production-management and stable self-upgrade implementation specification:
+  `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
 `new`, `final`, or agent-specific copy.
@@ -163,8 +174,7 @@ repo-map-specific triggers below are what an agent must keep current here:
 - PR descriptions must list tests run, docs changed, anti-dup checks, and
   cross-review status.
 
-
-## Hybrid AI/ML Manager canonical owners (2026-07-18)
+## Hybrid AI/ML Manager canonical owners (2026-07-19)
 
 - Master direction and console sprint coordination:
   `docs/ai/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
@@ -172,6 +182,17 @@ repo-map-specific triggers below are what an agent must keep current here:
   `docs/ai/AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`.
 - Proposed Telegram operational boundary (documentation only):
   `docs/reference/hermes_telegram_config.md`.
+- Runnable advisory observation slice:
+  `docs/ai/AI_RESEARCH_NEWS_WATCHER_2026_07_19.md`, with runtime, configuration
+  and workflow authority limited to read-only collection and artifact output.
+- Concrete post-watcher implementation order:
+  `docs/ai/AI_MANAGER_SELF_IMPROVEMENT_IMPLEMENTATION_BACKLOG_2026_07_19.md`, covering
+  deterministic sandbox reproduction, scheduler/protocol simulation, benchmark proposals,
+  dependency tests, draft-only PRs, offline/local canary and rollback without authority increase.
+- Development/production-management and stable self-upgrade programming specification:
+  `docs/ai/AI_MANAGER_DEVELOPMENT_PRODUCTION_SELF_UPGRADE_SPEC_2026_07_19.md`, defining
+  role separation, stable-release evidence, non-consensus production runbooks, local canary and
+  rollback without protocol, node, signing, settlement, payout or production-dispatch authority.
 
 These planning handoffs do not override accepted ADRs, HDCN protocol ownership, Sprint 01,
 `SECURITY.md`, or the human merge gate. HDCN never inherits a FlowMate trading capability.
