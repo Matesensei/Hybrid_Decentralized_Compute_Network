@@ -31,7 +31,12 @@ and failure-recovery direction. HDCN interprets it conservatively:
 The full cross-repository architecture and complete Claude Code, Codex CLI, and GLM 5.2 prompts
 are owned by FlowMate at
 `docs/ai_handoff/AI_MANAGER_HYBRID_MASTER_DIRECTION_AND_CONSOLE_SPRINTS_2026_07_18.md`.
-Always resolve the latest FlowMate draft PR #406 head before consuming those contracts.
+The S0 contracts are no longer a floating draft: FlowMate PR #406 was split and landed on
+FlowMate `main` (PR #418 AI-Manager half + PR #419 backtest/ML half). Consume the contracts
+**pinned to the exact FlowMate main commit
+`10aef57a0775c3145a51b48df7cf2d3660c239bc`** (2026-07-20). Never resolve a floating branch or
+"latest" head — bump this pin deliberately via a reviewed HDCN PR after re-running the Rust-side
+conformance vectors against the new commit.
 
 ## HDCN roles
 
