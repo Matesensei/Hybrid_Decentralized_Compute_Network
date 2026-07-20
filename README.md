@@ -55,6 +55,18 @@ scripts/run_simulations.sh
   technical directions until data decides.
 - `PROJECT_HANDBOOK_EN.md` / `PROJEKT_KEZIKONYV_HU.md` - human-facing handbook.
 
+### Advisory analyses (not canonical decisions)
+
+- `docs/ai/CONSOLE_HANDOFF_AUDIT_AND_PRODUCT_STRATEGY_2026_07_16.md` -
+  machine-facing entry point, precedence rules, conflicts, and safe follow-ups.
+- `docs/research/HDCN_FULL_AUDIT_HU_2026_07_16.md` - point-in-time Hungarian
+  technical, security, financial, cryptographic, and strategic audit.
+- `docs/research/HDCN_INNOVATION_PRODUCT_STRATEGY_HU_2026_07_16.md` -
+  point-in-time Hungarian product and protocol strategy research.
+
+These dated analyses are research inputs. They never override `AGENTS.md`,
+`SECURITY.md`, accepted ADRs, the current sprint, or the human merge gate.
+
 ## Agent Workflow
 
 The human operator owns the merge gate: no workflow auto-merges, and an agent may
