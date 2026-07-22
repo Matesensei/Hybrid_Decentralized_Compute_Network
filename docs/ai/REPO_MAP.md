@@ -98,6 +98,11 @@ Use the existing owner before creating a new module or document:
 - Protocol decisions: `docs/adr/`
 - Modeling before decisions: `docs/modeling/`
 - Sprint execution and validation notes: `docs/sprints/`
+- Sprint 01 FlowMate→WASM port design (deterministic first workload):
+  `docs/sprints/SPRINT_01_DESIGN_FLOWMATE_WASM_PORT.md`. Implements the Sprint 01
+  gate (`output_commit` bit-identity across machines) from
+  `DIRECTION_MODELING_PLAN.md`; design input for a later code PR, not itself
+  an implementation.
 - Raw uploaded research/input material: `docs/research/`
 - Seven-hard-problems risk/solution register + P0-P5 phase mapping:
   `docs/research/seven_problems_solutions.md`
