@@ -103,6 +103,16 @@ Use the existing owner before creating a new module or document:
   `docs/research/seven_problems_solutions.md`
 - AI operating rules and maps: `docs/ai/`
 
+## AI Manager integration seams (2026-07-22)
+
+- HDCN↔FlowMate receipt bridge design (data-plane only, no dispatch):
+  `docs/ai/AI_MANAGER_HDCN_RECEIPT_BRIDGE_2026_07_22.md`. Maps signed
+  `proto::ComputeReceipt` to FlowMate AI Manager `Observation(kind=COMPUTE_RECEIPT,
+  domain=HDCN)` at `SideEffectLevel.SANDBOX` (under the adapter authority
+  ceiling). Consumes the adapter boundary proposed in PR #10
+  (`AI_MANAGER_ADAPTER_HANDOFF_2026_07_18.md`). Design only; the adapter code
+  lives in the FlowMate repo and the receipts arrive with Sprint 01+.
+
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
 `new`, `final`, or agent-specific copy.
 
