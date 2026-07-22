@@ -101,6 +101,11 @@ Use the existing owner before creating a new module or document:
 - Raw uploaded research/input material: `docs/research/`
 - Seven-hard-problems risk/solution register + P0-P5 phase mapping:
   `docs/research/seven_problems_solutions.md`
+- Internal work-credit design (A1 archetype, proposed, trigger-gated):
+  `docs/adr/0003-internal-work-credit.md`. The full tokenomics analysis remains
+  `docs/research/protocol_compute_currency.md`; ADR-0003 only operationalizes
+  the internal-credit subset behind a P2.5 trigger gate, it does not authorize
+  a token or ledger implementation.
 - AI operating rules and maps: `docs/ai/`
 
 If an owner exists, extend it or reference it. Do not create a parallel `v2`,
